@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .img2,
+      .img3,.img4 {
+        display: none;
+      }
+      i {
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 20px;
+        position: absolute;
+        cursor: pointer;
+      }
+      .arrow-r {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        right: 25px;
+      }
+      .arrow-l {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        left: 25px;
+      }
+      .dot {
+        height: 25px;
+        width: 25px;
+        background-color: #cdcdcd;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+      }
+      .container {
+        flex-direction: column;
+      }
+      span {
+        margin: 10px;
+      }
+      span:nth-child(1) {
+        background-color: #4f4f4f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="carousel">
+        <img src="pexels-jeremy-bishop-1260133-26455238.jpg" alt="" />
+        <img src="pexels-kammeran-gonzalez-keola-3137381-26570912.jpg" alt="" />
+        <img src="pexels-nico-marin-703142244-26045508.jpg" alt="" />
+        <img src="pexels-asai-villarreal-510288134-27505450.jpg" alt="">
+        <i class="arrow-r"></i>
+        <i class="arrow-l"></i>
+      </div>
+      <span></span>
+    </div>
+    <script>
+      const images = document.querySelectorAll("img");
+      const span = document.querySelector("span");
+      images.forEach((img, i) => img.classList.add(`img${i + 1}`));
+      images.forEach((img) => (span.innerHTML += '<span class="dot"></span>'));
+      const dots = document.querySelectorAll(".dot");
+      const arrowr = document.querySelector(".arrow-r");
+      const arrowl = document.querySelector(".arrow-l");
+      let currentIndex = 0;
+      arrowr.addEventListener("click", () => {
+        if (currentIndex < images.length - 1) {
+          dots.forEach(dot => dot.style.backgroundColor = "#cdcdcd")
+          images[currentIndex].style.display = "none";
+          currentIndex++;
+          images[currentIndex].style.display = "inline";
+          dots[currentIndex].style.backgroundColor = "#4f4f4f"
+        } else {
+          dots.forEach(dot => dot.style.backgroundColor = "#cdcdcd")
+          images[currentIndex].style.display = "none";
+          currentIndex = 0;
+          images[currentIndex].style.display = "inline";
+          dots[currentIndex].style.backgroundColor = "#4f4f4f"
+        }
+      });
+      arrowl.addEventListener("click", () => {
+        if (currentIndex > 0) {
+          dots.forEach(dot => dot.style.backgroundColor = "#cdcdcd")
+          images[currentIndex].style.display = "none";
+          currentIndex--;
+          images[currentIndex].style.display = "inline";
+          dots[currentIndex].style.backgroundColor = "#4f4f4f"
+        } else {
+          dots.forEach(dot => dot.style.backgroundColor = "#cdcdcd")
+          images[currentIndex].style.display = "none";
+          currentIndex = images.length - 1;
+          images[currentIndex].style.display = "inline";
+          dots[currentIndex].style.backgroundColor = "#4f4f4f"
+        }
+      });
+      dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          dots.forEach(dot => dot.style.backgroundColor = "#cdcdcd");
+          images.forEach((img) => (img.style.display = "none"));
+          currentIndex = i;
+          images[currentIndex].style.display = "inline";
+          dot.style.backgroundColor = "#4f4f4f"
+        });
+      });
+      setInterval(() => {arrowr.click()}, 5000);
+    </script>
+  </body>
+</html>
